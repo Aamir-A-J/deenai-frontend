@@ -12,22 +12,31 @@
 
     <p id="response"></p>
 
-    <script>
-        function askQuestion() {
-            const question = document.getElementById('question').value;
-          fetch('https://backend-ph7q.onrender.com/ask', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ question: question })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('response').textContent = data.answer;
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    </script>
+<script>
+    function askQuestion() {
+        const question = document.getElementById('question').value;
+        console.log("Submitting question:", question); // Debug
+
+        fetch('https://backend-ph7q.onrender.com/ask', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ question: question })
+        })
+        .then(response => {
+            console.log("Raw response:", response);
+            return response.json();
+        })
+        .then(data => {
+            console.log("Response data:", data);
+            document.getElementById('response').textContent = data.answer;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+
 </body>
 </html>
